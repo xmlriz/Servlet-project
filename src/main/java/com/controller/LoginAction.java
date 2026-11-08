@@ -30,6 +30,9 @@ public class LoginAction extends HttpServlet
 		String uname = request.getParameter("uname");
 		String pass = request.getParameter("pass");
 		
+		if(uname.isBlank()||pass.isBlank())
+			request.getRequestDispatcher("ErrorPage").forward(request, response);
+			
 		LoginService loginService = new LoginService();
 		
 		if(loginService.isValidUserAndPassword(uname, pass))
@@ -37,7 +40,7 @@ public class LoginAction extends HttpServlet
 //			RequestDispatcher rs = request.getRequestDispatcher("Dashboard");
 //			rs.forward(request, response);
 //			
-			response.sendRedirect("Dashboard");	
+			response.sendRedirect("Dashboard?uname="+uname);	
 		}	
 		
 		else
